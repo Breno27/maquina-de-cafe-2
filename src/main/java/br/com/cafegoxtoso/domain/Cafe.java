@@ -1,9 +1,11 @@
 package br.com.cafegoxtoso.domain;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public enum Cafe {
+public enum Cafe implements CafeController {
     AMERICANO(1, "Americano", 6.0),
     EXPRESSO(2, "Expresso", 7.0),
     CAPUCCINO(3, "Capuccino", 8.0),
@@ -25,6 +27,11 @@ public enum Cafe {
 
     public static Optional<Cafe> cafePorCodigo(int codigoCafe){
         return Stream.of(values()).filter(cafe -> cafe.getCodigo() == codigoCafe).findFirst();
+    }
+
+    public static void ordenaCafePorCodigo(List<Cafe> cafes) {
+        cafes.sort(Comparator.comparing(Cafe::getCodigo));
+        cafes.forEach(System.out::println);
     }
 
     public int getCodigo() {
